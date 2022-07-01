@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package api.v1;
+
+option go_package = "github.com/fuweid/benchmark-yamux/api;api";
+
+service UnknownHub {
+	rpc Read(ReadRequest) returns (ReadResponse);
+}
+
+message ReadRequest {
+  uint32 len = 1;
+}
+
+message ReadResponse {
+  bytes data = 1;
+}
