@@ -2,13 +2,13 @@
 DESTDIR ?= /usr/local
 
 # command name
-COMMANDS=benchmark-yamux-app benchmark-yamux-server
+COMMANDS=benchmark-yamux-app benchmark-yamux-server benchmark-yamux-server-inguest
 
 # binaries
 BINARIES=$(addprefix bin/,$(COMMANDS))
 
 # go build command
-GO_BUILD_BINARY=go build -o $@ ./$<
+GO_BUILD_BINARY=go build -tags netgo -ldflags '-w -extldflags "-static"' -o $@ ./$<
 
 .PHONY: build binaries
 
