@@ -30,5 +30,19 @@ install:
 	@mkdir -p $(DESTDIR)/bin
 	@install $(BINARIES) $(DESTDIR)/bin
 
+# install_into_guest_rootfs installs the yamux server into guest rootfs.
+install_into_guest_rootfs:
+	@mkdir -p tmp/rootfs
+	@mount tmp/rootfs.ext4 tmp/rootfs
+	@install bin/* tmp/rootfs/usr/local/bin/
+	@umount tmp/rootfs
+
+# download_guest_rootfs downloads pre-build rootfs from firecracker community.
+download_guest_rootfs:
+	@mkdir -p tmp
+	@echo "download rootfs from firecracker community"
+	@wget https://s3.amazonaws.com/spec.ccfc.min/img/quickstart_guide/x86_64/rootfs/bionic.rootfs.ext4 \
+		-O tmp/rootfs.ext4
+
 clean:
 	@rm -rf ./bin
